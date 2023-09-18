@@ -1,0 +1,25 @@
+.TodoItem {
+  display: flex;
+}
+
+.TodoItem:hover {
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.TodoItem__in {
+  display: flex;
+  width: 100%;
+  padding: 12px;
+}
+
+.TodoItem__in input {
+  margin-right: 12px;
+}
+
+.TodoItem--completed .TodoItem__in {
+  text-decoration: line-through;
+}
+
+.TodoItem__remove {
+  margin: 12px;
+}
