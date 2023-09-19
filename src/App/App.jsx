@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
 import { TodoItem } from '../TodoItem';
 import { TodoForm } from '../TodoForm';
+import {
+  AppRoot,
+  SplitLayout,
+  SplitCol,
+  View,
+  Panel,
+  PanelHeader,
+  PanelSpinner,
+  Footer,
+} from '@vkontakte/vkui';
 import defaultData from './defaultData.json';
 import vkStorage from '@vkontakte/vk-bridge';
-import './styles.css';
+import '@vkontakte/vkui/dist/vkui.css';
 
 const STORAGE_KEY = 'list';
 
@@ -33,7 +43,7 @@ export function App() {
         value: JSON.stringify(todos),
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
 
   const addTask = (userInput) => {
@@ -68,30 +78,36 @@ export function App() {
   }, 0);
 
   return (
-    <div className="App">
-      <h1>Список задач 📝</h1>
-      {loaded ? (
-        <>
-          <div className="App__box">
-            <TodoForm addTask={addTask} />
-            {todos.map((todo) => (
-              <TodoItem
-                todo={todo}
-                key={todo.id}
-                toggleTask={handleToggle}
-                removeTask={removeTask}
-              />
-            ))}
-          </div>
-          <div className="App__footer">
-            {checkedCount === todos.length
-              ? `Все задачи выполнены ✨`
-              : `Выполнено: ${checkedCount} из ${todos.length}`}
-          </div>
-        </>
-      ) : (
-        <div className="App__box">Загружаем...</div>
-      )}
-    </div>
+    <AppRoot>
+      <SplitLayout header={<PanelHeader separator={false} />}>
+        <SplitCol autoSpaced>
+          <View activePanel="main">
+            <Panel id="main">
+              <PanelHeader separator={false}>Список задач 📝</PanelHeader>
+              {loaded ? (
+                <>
+                  <TodoForm addTask={addTask} />
+                  {todos.map((todo) => (
+                    <TodoItem
+                      todo={todo}
+                      key={todo.id}
+                      toggleTask={handleToggle}
+                      removeTask={removeTask}
+                    />
+                  ))}
+                  <Footer>
+                    {checkedCount === todos.length
+                      ? `Все задачи выполнены ✨`
+                      : `Выполнено: ${checkedCount} из ${todos.length}`}
+                  </Footer>
+                </>
+              ) : (
+                <PanelSpinner />
+              )}
+            </Panel>
+          </View>
+        </SplitCol>
+      </SplitLayout>
+    </AppRoot>
   );
 }

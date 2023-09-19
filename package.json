@@ -9,7 +9,9 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@vkontakte/icons": "^2.67.0",
     "@vkontakte/vk-bridge": "^2.11.2",
+    "@vkontakte/vkui": "^5.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
