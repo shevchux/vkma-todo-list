@@ -1,5 +1,5 @@
+import { Input, Button, FormItem, FormLayout } from '@vkontakte/vkui';
 import { useState } from 'react';
-import './styles.css';
 
 export function TodoForm({ addTask }) {
   const [userInput, setUserInput] = useState('');
@@ -15,15 +15,20 @@ export function TodoForm({ addTask }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="TodoForm">
-      <input
-        className="TodoForm__input"
-        value={userInput}
-        type="text"
-        onChange={handleChange}
-        placeholder="Новая задача..."
-      />
-      <button className="TodoForm__button">Добавить</button>
-    </form>
+    <FormLayout onSubmit={handleSubmit}>
+      <FormItem>
+        <Input
+          value={userInput}
+          type="text"
+          onChange={handleChange}
+          placeholder="Новая задача..."
+          after={
+            <Button size="l" type="submit">
+              Добавить
+            </Button>
+          }
+        />
+      </FormItem>
+    </FormLayout>
   );
 }
