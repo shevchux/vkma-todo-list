@@ -12,7 +12,7 @@ import {
   Footer,
 } from '@vkontakte/vkui';
 import defaultData from './defaultData.json';
-import vkStorage from '@vkontakte/vk-bridge';
+import vkBridge from '@vkontakte/vk-bridge';
 import '@vkontakte/vkui/dist/vkui.css';
 
 const STORAGE_KEY = 'list';
@@ -22,7 +22,7 @@ export function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    vkStorage
+    vkBridge
       .send('VKWebAppStorageGet', { keys: [STORAGE_KEY] })
       .then((result) => {
         try {
@@ -38,7 +38,7 @@ export function App() {
 
   useEffect(() => {
     if (loaded) {
-      vkStorage.send('VKWebAppStorageSet', {
+      vkBridge.send('VKWebAppStorageSet', {
         key: STORAGE_KEY,
         value: JSON.stringify(todos),
       });
